@@ -1,0 +1,1 @@
+ALTER TABLE `ecs_article` ADD `readcount` INT NOT NULL DEFAULT '0' COMMENT 'ÔÄ¶Á´ÎÊý' ;

@@ -108,7 +108,6 @@ else
             $page = $pages;
         }
         $i = 1;
-
         foreach ($cat_goods['goods'] as $goods_data)
         {
             if (($i > ($page_num * ($page - 1 ))) && ($i <= ($page_num * $page)))

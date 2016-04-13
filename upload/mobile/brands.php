@@ -57,11 +57,12 @@ if ($b_id > 0)
             }
             break;
     }
+
+
     $brands_array = assign_brand_goods($b_id, 0, 0, $order_rule);
     $brands_array['brand']['name'] = encode_output($brands_array['brand']['name']);
     $smarty->assign('brands_array' , $brands_array);
     $num = count($brands_array['goods']);
-
     if ($num > 0)
     {
         $page_num = '10';

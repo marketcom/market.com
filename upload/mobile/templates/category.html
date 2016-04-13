@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>商品详情</title>
+    <title>{if $cat_name}{$cat_name}类{else}所有分类{/if}</title>
     <meta name="author" content="m.jd.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -92,7 +92,7 @@
 <header>
     <div class="new-header">
         <a href="javascript:pageBack();" class="new-a-back" id="backUrl"><span>返回</span></a>
-        <h2>商品分类</h2>
+        <h2>{if $cat_name}{$cat_name}类{else}所有分类{/if}</h2>
         <a href="javascript:void(0)" id="btnJdkey" class="new-a-jd"><span>行院键</span></a>
     </div>
     <div class="new-jd-tab" style="display:none" id="jdkey">
@@ -120,7 +120,7 @@
     <input name="sid" value="" type="hidden" />
     <div class="new-cate-srch">
         <div class="new-srch-box">
-            <input name="keyword" id="newkeyword" type="text" required class="new-srch-input" value=""><a href="javascript:void(0);" target="_self" onclick="cancelHotWord()" class="new-s-close"></a><a href="javascript:void(0)" target="_self" onclick="$('#searchForm').submit();" class="new-s-srch"><span></span></a>
+            <input name="keyword" id="newkeyword" type="text" required class="new-srch-input" value="{$smarty.get.keyword}"><a href="javascript:void(0);" target="_self" onclick="cancelHotWord()" class="new-s-close"></a><a href="javascript:void(0)" target="_self" onclick="$('#searchForm').submit();" class="new-s-srch"><span></span></a>
         </div>
         <div class="new-srch-lst" id="shelper" style="display:none">
         </div>
