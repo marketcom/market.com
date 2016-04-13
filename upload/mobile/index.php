@@ -40,6 +40,7 @@ if ($best_num > 0)
 /* 热门商品 */
 $hot_goods = get_recommend_goods('hot');
 $hot_num = count($hot_goods);
+
 $smarty->assign('hot_num' , $hot_num);
 if ($hot_num > 0)
 {
@@ -48,6 +49,7 @@ if ($hot_num > 0)
     {
         $hot_goods[$key]['shop_price'] = encode_output($hot_data['shop_price']);
         $hot_goods[$key]['name'] = encode_output($hot_data['name']);
+        $hot_goods[$key]['thumb'] = $hot_data['thumb'];
         /*if ($i > 2)
         {
             break;
