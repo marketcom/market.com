@@ -32,27 +32,52 @@ if ($act == 'detail')
     $a_id = !empty($_GET['a_id']) ? intval($_GET['a_id']) : '';
     if ($a_id > 0)
     {
-        $article_row = $db->getRow('SELECT title, content FROM ' . $ecs->table('article') . ' WHERE article_id = ' . $a_id . ' AND cat_id > 0 AND is_open = 1');
+        $article_row = $db->getRow('SELECT * FROM ' . $ecs->table('article') . ' WHERE article_id = ' . $a_id . ' AND cat_id > 0 AND is_open = 1');
         if (!empty($article_row))
         {
+
+            $sql = "UPDATE " .$GLOBALS['ecs']->table('article'). " SET".
+                " readcount = readcount + 1 ".
+                " WHERE article_id = '" . $a_id . "'";
+            $result = $GLOBALS['db']->query($sql);
+
             $article_row['title'] = encode_output($article_row['title']);
+            $article_row['add_time'] = date('Y-m-d H:i:s',$article_row['add_time']);
+
             $replace_tag = array('<br />' , '<br/>' , '<br>' , '</p>');
             $article_row['content'] = htmlspecialchars_decode(encode_output($article_row['content']));
             $article_row['content'] = str_replace($replace_tag, '{br}' , $article_row['content']);
             $article_row['content'] = strip_tags($article_row['content']);
             $article_row['content'] = str_replace('{br}' , '<br />' , $article_row['content']);
+
+            $last_id  = $a_id - 1;
+            $next_id  = $a_id + 1;
+
+            $last_article = $db->getRow('SELECT article_id,title FROM ' . $ecs->table('article') . ' WHERE article_id = ' . $last_id . ' AND cat_id > 0 AND is_open = 1');
+            $next_article = $db->getRow('SELECT article_id,title FROM ' . $ecs->table('article') . ' WHERE article_id = ' . $next_id . ' AND cat_id > 0 AND is_open = 1');
+
+            $smarty->assign('last_article', $last_article);
+            $smarty->assign('next_article', $next_article);
+
             $smarty->assign('article_data', $article_row);
         }
     }
+    $smarty->assign('footer', get_footer());
     $smarty->display('article.html');
 }
 
 /* 文章列表 */
 else
 {
-    $article_num = $db->getOne("SELECT count(*) FROM " . $ecs->table('article') . " WHERE cat_id > 0 AND is_open = 1");
+    $keyword  = isset($_GET['keyword'])?$_GET['keyword']:'';
+    $where  =  '';
+    if(!empty($keyword)){
+        $where  = " AND ( keywords like  '%".$keyword."%' OR title like  '%".$keyword."%') ";
+    }
+    $article_num = $db->getOne("SELECT count(*) FROM " . $ecs->table('article') . " WHERE  cat_id > 0 AND is_open = 1 ".$where." ");
     if ($article_num > 0)
     {
+
         $page_num = '10';
         $page = !empty($_GET['page']) ? intval($_GET['page']) : 1;
         $pages = ceil($article_num / $page_num);
@@ -71,7 +96,8 @@ else
         $pagebar = get_wap_pager($article_num, $page_num, $page, 'article.php', 'page');
         $smarty->assign('pagebar', $pagebar);
         include_once(ROOT_PATH . '/includes/lib_article.php');
-        $article_array = get_cat_articles(-1, $page, $page_num);
+        $article_array = get_cat_articles(-1, $page, $page_num,$keyword);
+
         $i = 1;
         foreach ($article_array as $key => $article_data)
         {
@@ -81,6 +107,7 @@ else
         }
         $smarty->assign('article_array', $article_array);
     }
+    $smarty->assign('footer', get_footer());
     $smarty->display('article_list.html');
 }
 ?>

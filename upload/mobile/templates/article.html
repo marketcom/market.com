@@ -35,32 +35,22 @@
     <!--header 结束-->
     <div class="news_view w">
         <h1>{$article_data.title}</h1>
-        <div class="news_tags"><span>时间：{$article_data.add_time}</span><span>作者：{$article_data.author}</span><span>浏览：168次</span></div>
+        <div class="news_tags"><span>时间：{$article_data.add_time}</span><span>作者：{$article_data.author}</span><span>浏览：{$article_data.readcount}次</span></div>
         <div class="news_content">
             {$article_data.content}
         </div>
-        <div class="news_key"><span>标签：</span><a href="#">实超</a></div>
+        <div class="news_key"><span>关键字：</span><a href="#">{$article_data.keywords}</a></div>
         <div class="news_more">
-            <div class="news_next"><span>上一篇：</span><a href="#">淘宝重审卖家延迟发货 或将修订新规？</a></div>
-            <div class="news_next"><span>下一篇：</span><a href="#">聚美优品可以返利吗</a></div>
+            {if $last_article}
+                <div class="news_next"><span>上一篇：</span><a href="article.php?act=detail&a_id={$last_article.article_id}">{$last_article.title}</a></div>
+            {/if}
+            {if $next_article}
+                 <div class="news_next"><span>下一篇：</span><a href="article.php?act=detail&a_id={$last_article.article_id}">{$next_article.title}</a></div>
+            {/if}
         </div>
     </div>
 
-    <div class="m_user w">
-        {if $smarty.session.user_id eq 0}
-            <a href="user.php?act=login">登录</a>
-            {else}
-            <a href="user.php?act=login">个人中心</a>
-        {/if}
-        <a href="user.php?act=register">注册</a>
-        <a href="#">返回顶部</a>
-    </div>
-    <!--<div class="footer w">
-        <a href="#"><div class="ico_img"><img src="images/178hui-app.png"></div><span style="color:#00bb9c">客户端</span></a>
-        <a href="index.html"><div class="ico_img"><img src="images/178hui-shouji.png"></div><span style="color:#eb4f38">触摸版</span></a>
-        <a href="#"><div class="ico_img"><img src="images/178hui-diannao.png"></div><span>电脑版</span></a>
-    </div>-->
-    <div class="copyright">Copyright © 2016 行院实超</div>
+    <div class="copyright">{$footer}</div>
 </div>
 </body>
 </html>

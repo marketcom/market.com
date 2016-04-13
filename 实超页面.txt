@@ -6,13 +6,13 @@ http://market.com/mobile/goods.php?id=9
 http://market.com/mobile/goods.php?act=view_img&id=9
 评论页
 http://market.com/mobile/comment.php?g_id=9
-登录页(in do)
+登录页(Done)
 http://market.com/mobile/user.php?act=login
-注册页(in do)
+注册页(Done)
 http://market.com/mobile/user.php?act=register
-分类页(in do)
+分类页(Done)
 http://market.com/mobile/category.php
-商品列表页(in do)
+商品列表页(Done)
 http://market.com/mobile/category.php?c_id=13
 
 文章列表页

@@ -30,13 +30,13 @@
     <header>
         <div class="header"> <a class="new-a-back" href="javascript:history.back();"> <span><img src="images/iconfont-fanhui.png"></span> </a>
             <h2>信息</h2>
-            <div class="head_right"><a href="news_index.html" style="color:#FFFFFF; font-size:14px;">返回资讯</a></div>
+            <div class="head_right"><a href="index.php" style="color:#FFFFFF; font-size:14px;">返回首页</a></div>
         </div>
     </header>
     <!--header 结束-->
     <div class="search w">
-        <form action="" method="get">
-            <input name="" type="text" class="search_input" placeholder="请输入关键字"><input name="" type="button" class="search_submit" value="搜索">
+        <form action="article.php" method="get" >
+            <input name="keyword" value="{$smarty.get.keyword}" type="text" class="search_input" placeholder="请输入关键字"><input type="submit" class="search_submit" value="搜索">
         </form>
     </div>
     <div class="news_index w">
@@ -47,30 +47,17 @@
                         <div class="ui-list-info">
                             <h4>{$article_data.title}</h4>
                         </div>
-                        <div class="ui-badge-muted">123</div>
+                        <div class="ui-badge-muted">{$article_data.readcount}</div>
                     </li>
                 </a>
             {/foreach}
-
-
-
         </ul>
-        {if $pagebar}
-            {$pagebar}<br/>
-        {/if}
     </div>
+    {if $pagebar}
+        <div style=" text-align: center; font-size: 14px;">{$pagebar}</div>
+    {/if}
 
-    <div class="m_user w">
-        <a href="login.html">登录</a>
-        <a href="register.html">注册</a>
-        <a href="#">返回顶部</a>
-    </div>
-    <div class="footer w">
-        <a href="#"><div class="ico_img"><img src="images/178hui-app.png"></div><span style="color:#00bb9c">客户端</span></a>
-        <a href="index.html"><div class="ico_img"><img src="images/178hui-shouji.png"></div><span style="color:#eb4f38">触摸版</span></a>
-        <a href="#"><div class="ico_img"><img src="images/178hui-diannao.png"></div><span>电脑版</span></a>
-    </div>
-    <div class="copyright">Copyright © 2012-2015 一起惠返利网 m.178hui.com 版权所有</div>
+    <div class="copyright">{$footer}</div>
 </div>
 </body>
 </html>

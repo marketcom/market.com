@@ -19,6 +19,21 @@ if (!defined('IN_ECS'))
 }
 
 /**
+ * 更新文章阅读量
+ *
+ * @id interger $article_id
+ *
+ * @return
+ */
+function update_read_articles($id){
+    $sql = "UPDATE " .$GLOBALS['ecs']->table('article'). " SET".
+        " readcount = readcount + 1 ".
+        " WHERE article_id = '" . $id . "'";
+    $result = $GLOBALS['db']->query($sql);
+}
+
+
+/**
  * 获得文章分类下的文章列表
  *
  * @access  public
@@ -42,15 +57,15 @@ function get_cat_articles($cat_id, $page = 1, $size = 20 ,$requirement='')
     //增加搜索条件，如果有搜索内容就进行搜索    
     if ($requirement != '')
     {
-        $sql = 'SELECT article_id, title, author, add_time, file_url, open_type' .
+        $sql = 'SELECT article_id, title, author, add_time, readcount,file_url, open_type' .
                ' FROM ' .$GLOBALS['ecs']->table('article') .
-               ' WHERE is_open = 1 AND title like \'%' . $requirement . '%\' ' .
+               ' WHERE is_open = 1 AND (title like \'%' . $requirement . '%\' OR keywords like \'%' . $requirement . '%\')  ' .
                ' ORDER BY article_type DESC, article_id DESC';
     }
     else 
     {
         
-        $sql = 'SELECT article_id, title, author, add_time, file_url, open_type' .
+        $sql = 'SELECT article_id, title, author, add_time, readcount, file_url, open_type' .
                ' FROM ' .$GLOBALS['ecs']->table('article') .
                ' WHERE is_open = 1 AND ' . $cat_str .
                ' ORDER BY article_type DESC, article_id DESC';
@@ -64,7 +79,7 @@ function get_cat_articles($cat_id, $page = 1, $size = 20 ,$requirement='')
         while ($row = $GLOBALS['db']->fetchRow($res))
         {
             $article_id = $row['article_id'];
-
+            $arr[$article_id]['readcount']   = $row['readcount'];
             $arr[$article_id]['id']          = $article_id;
             $arr[$article_id]['title']       = $row['title'];
             $arr[$article_id]['short_title'] = $GLOBALS['_CFG']['article_title_length'] > 0 ? sub_str($row['title'], $GLOBALS['_CFG']['article_title_length']) : $row['title'];

@@ -1,12 +1,12 @@
 <?php
 $data = array (
-  'shop_name' => 'ECSHOP',
-  'shop_title' => 'ECSHOP演示站',
-  'shop_desc' => 'ECSHOP演示站',
-  'shop_keywords' => 'ECSHOP演示站',
+  'shop_name' => '行院实超',
+  'shop_title' => '行院实超',
+  'shop_desc' => '行院实超',
+  'shop_keywords' => '行院实超',
   'shop_country' => '1',
-  'shop_province' => '2',
-  'shop_city' => '52',
+  'shop_province' => '6',
+  'shop_city' => '76',
   'shop_address' => '',
   'qq' => '',
   'ww' => '',
