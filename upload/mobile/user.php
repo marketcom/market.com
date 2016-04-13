@@ -26,12 +26,12 @@ if ($act == 'do_login')
 {
     $user_name = !empty($_POST['username']) ? $_POST['username'] : '';
     $pwd = !empty($_POST['pwd']) ? $_POST['pwd'] : '';
+    $smarty->assign('footer', get_footer());
     if (empty($user_name) || empty($pwd))
     {
         $login_faild = 1;
         $smarty->assign('login_faild', $login_faild);
-        $smarty->assign('footer', get_footer());
-        $smarty->display('login.html');
+       // $smarty->display('login.html');exit;
     }
     else
     {
@@ -41,16 +41,15 @@ if ($act == 'do_login')
             $user->set_cookie($user_name);
             update_user_info();
             show_user_center();
+            exit;
         }
         else
         {
             $login_faild = 1;
             $smarty->assign('login_faild', $login_faild);
-            $smarty->assign('footer', get_footer());
-            $smarty->display('login.html');
+            //$smarty->display('login.html');
         }
     }
-    $smarty->assign('footer', get_footer());
     $smarty->display('login.html');
 
 }
