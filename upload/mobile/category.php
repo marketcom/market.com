@@ -52,7 +52,7 @@ else
         }
         $smarty->assign('cat_children', $cat_array[$c_id]['cat_id']);
     }
-
+    //价格排序
     if (empty($_GET['order_price']))
     {
         $order_rule = 'ORDER BY g.shop_price ASC, g.sort_order';
@@ -61,6 +61,9 @@ else
     {
         $order_rule = 'ORDER BY g.shop_price DESC, g.sort_order';
     }
+    //销量排序
+
+    //时间排序
 
     $cat_goods = assign_cat_goods($c_id, 0, 'wap', $order_rule);
     $num = count($cat_goods['goods']);
@@ -104,9 +107,6 @@ else
         $pcat_array[1]['cat_name'] = encode_output($pcat_array[1]['cat_name']);
         $smarty->assign('pcat_array', $pcat_array[1]);
     }
-    print_r($$data);
-
-
     $smarty->assign('cat_array', $cat_array);
 }
 
