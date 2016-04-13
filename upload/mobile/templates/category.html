@@ -164,12 +164,21 @@
     </style>
     <div class="carg">
         {if $smarty.get.order_price}
-            <a class="select" href='category.php?c_id={$smarty.get.c_id}{if $smarty.get.page}&page={$smarty.get.page}{/if}'>价格排序<span class="downimg" ></span></a>
+            <a class="select" href='category.php?c_id={$smarty.get.c_id}&order_type=1{if $smarty.get.page}&page={$smarty.get.page}{/if}'>价格排序<span class="downimg" ></span></a>
         {else}
-            <a class="select" href='category.php?c_id={$smarty.get.c_id}&order_price=1{if $smarty.get.page}&page={$smarty.get.page}{/if}'>价格排序<span class="upimg" ></span></a>
+            <a class="select" href='category.php?c_id={$smarty.get.c_id}&order_type=1&order_price=1{if $smarty.get.page}&page={$smarty.get.page}{/if}'>价格排序<span class="upimg" ></span></a>
         {/if}
-        <a class="select">时间排序<span class="upimg" ></span><a>
-        <a class="select">销量排序<span class="upimg" ></span><a>
+        {if $smarty.get.order_time}
+            <a href='category.php?c_id={$smarty.get.c_id}&order_type=2{if $smarty.get.page}&page={$smarty.get.page}{/if}'  class="select">上架时间<span class="downimg" ></span><a>
+        {else}
+            <a class="select"  href='category.php?c_id={$smarty.get.c_id}&order_type=2&order_time=1{if $smarty.get.page}&page={$smarty.get.page}{/if}'>上架时间<span class="upimg" ></span><a>
+        {/if}
+
+        {if $smarty.get.order_sale}
+            <a href='category.php?c_id={$smarty.get.c_id}&order_type=3{if $smarty.get.page}&page={$smarty.get.page}{/if}'  class="select">销售量<span class="downimg" ></span><a>
+        {else}
+            <a class="select"  href='category.php?c_id={$smarty.get.c_id}&order_type=3&order_sale=1{if $smarty.get.page}&page={$smarty.get.page}{/if}'>销售量<span class="upimg" ></span><a>
+        {/if}
     </div>
 
 

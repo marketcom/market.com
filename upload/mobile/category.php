@@ -52,19 +52,42 @@ else
         }
         $smarty->assign('cat_children', $cat_array[$c_id]['cat_id']);
     }
-    //价格排序
-    if (empty($_GET['order_price']))
-    {
-        $order_rule = 'ORDER BY g.shop_price ASC, g.sort_order';
+    $order_type  = isset($_GET['order_type'])?$_GET['order_type']:1;
+    switch($order_type){
+        case '3':
+            //销量排序
+            if (empty($_GET['order_sale']))
+            {
+                $order_rule = 'ORDER BY g.integral ASC, g.sort_order';
+            }
+            else
+            {
+                $order_rule = 'ORDER BY g.integral DESC, g.sort_order';
+            }
+             break;
+        case '2':
+            //上架时间排序
+            if (empty($_GET['order_time']))
+            {
+                $order_rule = 'ORDER BY g.add_time ASC';
+            }
+            else
+            {
+                $order_rule = 'ORDER BY g.add_time DESC';
+            }
+            break;
+        default:
+            //价格排序
+            if (empty($_GET['order_price']))
+            {
+                $order_rule = 'ORDER BY g.shop_price ASC, g.sort_order';
+            }
+            else
+            {
+                $order_rule = 'ORDER BY g.shop_price DESC, g.sort_order';
+            }
+            break;
     }
-    else
-    {
-        $order_rule = 'ORDER BY g.shop_price DESC, g.sort_order';
-    }
-    //销量排序
-
-    //时间排序
-
     $cat_goods = assign_cat_goods($c_id, 0, 'wap', $order_rule);
     $num = count($cat_goods['goods']);
     if ($num > 0)
