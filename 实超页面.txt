@@ -15,12 +15,12 @@ http://market.com/mobile/category.php
 商品列表页(Done)
 http://market.com/mobile/category.php?c_id=13
 
-文章列表页
+文章列表页(Done)
 http://market.com/mobile/article.php
-文章详情页
+文章详情页(Done)
 http://market.com/mobile/article.php?act=detail&a_id=31
 
-品牌页
+品牌页(Done)
 http://market.com/mobile/brands.php
 
 我的订单

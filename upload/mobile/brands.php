@@ -20,19 +20,48 @@ require(dirname(__FILE__) . '/includes/init.php');
 $b_id = !empty($_GET['b_id']) ? intval($_GET['b_id']) : 0;
 if ($b_id > 0)
 {
-    if (empty($_GET['order_price']))
-    {
-        $order_rule = ' ORDER BY g.shop_price ASC, g.sort_order';
-    }
-    else
-    {
-        $order_rule = ' ORDER BY g.shop_price DESC, g.sort_order';
-    }
 
+    $order_type  = isset($_GET['order_type'])?$_GET['order_type']:1;
+    switch($order_type){
+        case '3':
+            //销量排序
+            if (empty($_GET['order_sale']))
+            {
+                $order_rule = 'ORDER BY g.integral ASC, g.sort_order';
+            }
+            else
+            {
+                $order_rule = 'ORDER BY g.integral DESC, g.sort_order';
+            }
+            break;
+        case '2':
+            //上架时间排序
+            if (empty($_GET['order_time']))
+            {
+                $order_rule = 'ORDER BY g.add_time ASC';
+            }
+            else
+            {
+                $order_rule = 'ORDER BY g.add_time DESC';
+            }
+            break;
+        default:
+            //价格排序
+            if (empty($_GET['order_price']))
+            {
+                $order_rule = 'ORDER BY g.shop_price ASC, g.sort_order';
+            }
+            else
+            {
+                $order_rule = 'ORDER BY g.shop_price DESC, g.sort_order';
+            }
+            break;
+    }
     $brands_array = assign_brand_goods($b_id, 0, 0, $order_rule);
     $brands_array['brand']['name'] = encode_output($brands_array['brand']['name']);
     $smarty->assign('brands_array' , $brands_array);
     $num = count($brands_array['goods']);
+
     if ($num > 0)
     {
         $page_num = '10';
@@ -57,10 +86,11 @@ if ($b_id > 0)
             {
                 $price = empty($goods_info['promote_price_org']) ? $goods_data['shop_price'] : $goods_data['promote_price'];
                 //$wml_data .= "<a href='goods.php?id={$goods_data['id']}'>".encode_output($goods_data['name'])."</a>[".encode_output($price)."]<br/>";
-                $data[] = array('i' => $i , 'price' => encode_output($price) , 'id' => $goods_data['id'] , 'name' => encode_output($goods_data['name']));
+                $data[] = array('i' => $i , 'price' => encode_output($price) , 'id' => $goods_data['id'] , 'name' => encode_output($goods_data['name']), 'brief'=>$goods_data['brief'] , 'thumb'=>$goods_data['thumb'] );
             }
             $i++;
         }
+
         $smarty->assign('goods_data', $data);
         $pagebar = get_wap_pager($num, $page_num, $page, 'brands.php?b_id=' . $b_id.'&order_price='.(empty($order_price)?0:$order_price), 'page');
         $smarty->assign('pagebar', $pagebar);
