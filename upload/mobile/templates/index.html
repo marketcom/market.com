@@ -4,14 +4,18 @@
     <meta name="author" content="m.178hui.com" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta name="format-detection" content="telephone=no">
-    <title>首页</title
-            ><link href="css/owl.carousel.css" rel="stylesheet">
+    <title>首页</title>
+    <link href="css/owl.carousel.css" rel="stylesheet">
     <link href="css/public.css" rel="stylesheet" type="text/css" />
     <link href="css/index.css" rel="stylesheet" type="text/css" />
+    <style>
+		.red{ color:#F03 !important; }
+		.blue { color:#09F !important;}
+	</style>
     <script src="js/jquery-1.8.3.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="layer/layer.js"></script>
-
+	
     <script type="text/javascript">
         $(document).ready(function(){
             $(".mall_list a").click(function(){
@@ -33,8 +37,8 @@
 
 <body>
 <div class="mobile">
-    <div class="header">
-        <div class="m_logo"><a href="#"><img src="images/m-index_02.png"></a></div>
+    <div class="header" style="display:">
+        <div class="m_logo"><a href="#"></a></div>
         <div class="m_search"><a href="#"><img src="images/m-index_05.png" width="40"></a></div>
     </div>
     <div class="top w">
@@ -69,28 +73,54 @@
         </div>
     </div>
     <div class="m_baoliao w">
-        <div class="baoliao_title"><span>精品商品</span><em><a href="#"><img src="images/iconfont-shuaxin.png"></a></em></div>
+        <div class="baoliao_title"><span class="red">精品商品</span><em><a ><img src="images/iconfont-shuaxin.png"></a></em></div>
         <div class="baoliao_list">
             {foreach from=$best_goods item=best_data}
-                <a href="baoliao_view.html">
+                <a href="goods.php?id={$best_data.id}">
                     <div class="baoliao_content">
                         <div class="bl_img"><img src="{$best_data.thumb}" /></div>
                         <div class="bl_right">
-                            <div class="bl_title">{$best_data.title}</div>
-                            <div class="bl_note">手机端：99元包邮</div>
+                         	<div class="bl_note">{$best_data.name}</div>
+                            <div class="bl_title">{$best_data.brief}</div>
                             <div class="bl_tag">
-                                <div class="bl_price">￥99.00</div>
-                                <div class="bl_oprice">￥138.00</div>
-                                <div class="bl_time">07-10 12:33</div>
-                                <div class="bl_mall">京东商城</div>
+                                <div class="bl_price">{$best_data.shop_price}</div>
+                                <div class="bl_oprice">{$best_data.market_price}</div>
+                                <div class="bl_time"></div>
+                                <div class="bl_mall">{$best_data.brand_name}</div>
                             </div>
                         </div>
                     </div>
                 </a>
             {/foreach}
         </div>
-        <div class="bl_more"><a href="#">加载更多</a></div>
+        <div class="bl_more" style="display:none;"><a href="#">加载更多</a></div>
     </div>
+    
+{if $promote_num > 0}    
+     <div class="m_baoliao w">
+        <div class="baoliao_title"><span class="blue">促销商品</span><em><a href="#"><img src="images/iconfont-shuaxin.png"></a></em></div>
+        <div class="baoliao_list">
+            {foreach from=$promote_num item=promote_data}
+                <a href="goods.php?id={$best_data.id}">
+                    <div class="baoliao_content">
+                        <div class="bl_img"><img src="{$promote_data.thumb}" /></div>
+                        <div class="bl_right">
+                         	<div class="bl_note">{$promote_data.name}</div>
+                            <div class="bl_title">{$promote_data.brief}</div>
+                            <div class="bl_tag">
+                                <div class="bl_price">{$promote_data.shop_price}</div>
+                                <div class="bl_oprice">{$promote_data.market_price}</div>
+                                <div class="bl_time"></div>
+                                <div class="bl_mall">{$promote_data.brand_name}</div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {/foreach}
+        </div>
+        <div class="bl_more" style="display:none;"><a href="#">加载更多</a></div>
+    </div>
+{/if}    
    
     <div class="copyright">{$footer}</div>
 </div>

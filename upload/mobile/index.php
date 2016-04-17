@@ -37,6 +37,7 @@ if ($best_num > 0)
     $smarty->assign('best_goods' , $best_goods);
 }
 
+
 /* 热门商品 */
 $hot_goods = get_recommend_goods('hot');
 $hot_num = count($hot_goods);

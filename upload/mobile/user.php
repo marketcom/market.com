@@ -23,7 +23,7 @@ $act = isset($_GET['act']) ? $_GET['act'] : '';
 
 /* 用户登陆 */
 if ($act == 'do_login')
-{
+{	
     $user_name = !empty($_POST['username']) ? $_POST['username'] : '';
     $pwd = !empty($_POST['pwd']) ? $_POST['pwd'] : '';
     $smarty->assign('footer', get_footer());
@@ -36,7 +36,7 @@ if ($act == 'do_login')
     else
     {
         if ($user->check_user($user_name, $pwd) > 0)
-        {
+        {	
             $user->set_session($user_name);
             $user->set_cookie($user_name);
             update_user_info();
@@ -51,7 +51,14 @@ if ($act == 'do_login')
         }
     }
     $smarty->display('login.html');
+	
 
+}
+
+elseif ($act == 'order_detail'){
+
+
+    $smarty->display('order_detail.html');
 }
 
 elseif ($act == 'order_list')
@@ -272,13 +279,13 @@ else
  */
 function show_user_center()
 {
-    if($_SESSION['user_id']){
-        $best_goods = get_recommend_goods('best');
+    if  ($_SESSION['user_id']){
+                $best_goods = get_recommend_goods('best');
         if (count($best_goods) > 0)
-        {
-            foreach  ($best_goods as $key => $best_data)
-            {
-                $best_goods[$key]['shop_price'] = encode_output($best_data['shop_price']);
+                {
+                    foreach  ($best_goods as $key => $best_data)
+                    {
+                        $best_goods[$key]['shop_price'] = encode_output($best_data['shop_price']);
                 $best_goods[$key]['name'] = encode_output($best_data['name']);
             }
         }
