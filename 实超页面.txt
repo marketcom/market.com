@@ -16,27 +16,32 @@ http://market.com/mobile/article.php?act=detail&a_id=31
 http://market.com/mobile/brands.php
 
 
-首页(in do)
+我的订单(Done)
+http://market.com/mobile/user.php?act=order_list
+
+首页(Done)
 http://market.com/mobile/index.php
-个人中心页面(in do)
+
+个人中心页面(填充数据)
 http://market.com/mobile/user.php?act=do_login
+
+
+结算页面(Done)
+http://market.com/mobile/order.php?act=order_lise
+
+配送地址填写页面(Done)
+http://market.com/mobile/buy.php?act=checkout
 
 详情页
 http://market.com/mobile/goods.php?id=9
-查看商品图片页
-http://market.com/mobile/goods.php?act=view_img&id=9
+
 评论页
 http://market.com/mobile/comment.php?g_id=9
 
 
-我的订单(in do)
-http://market.com/mobile/user.php?act=order_list
 
-结算页面
-http://market.com/mobile/order.php?act=order_lise
 
-购物车页面
-http://market.com/mobile/buy.php?act=checkout
-
+查看商品图片页(不做)
+http://market.com/mobile/goods.php?act=view_img&id=9
 商品列表 /促销/等（暂时不做） 
 http://market.com/mobile/goods_list.php?type=new
