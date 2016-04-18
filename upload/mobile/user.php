@@ -99,8 +99,6 @@ elseif ($act == 'order_detail'){
         " WHERE user_id = '$user_id' and order_id= '$order_id' ";
     $res = $GLOBALS['db']->getRow($sql);
 
-
-
     $smarty->display('order_detail.html');
 }
 
@@ -208,8 +206,6 @@ elseif ($act == 'logout')
     {
         $back_act = strpos($GLOBALS['_SERVER']['HTTP_REFERER'], 'user.php') ? './index.php' : $GLOBALS['_SERVER']['HTTP_REFERER'];
     }
-
-
     $user->logout();
     unset($_SESSION['user_id']);
     $Loaction = 'index.php';
@@ -332,6 +328,9 @@ function show_user_center()
                 $best_goods[$key]['name'] = encode_output($best_data['name']);
             }
         }
+        //统计订单数量
+        $count = get_order_mycount();
+        $GLOBALS['smarty']->assign('count' , $count);
         $GLOBALS['smarty']->assign('best_goods' , $best_goods);
         $GLOBALS['smarty']->assign('footer', get_footer());
         $GLOBALS['smarty']->display('user.html');

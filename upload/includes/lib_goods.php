@@ -174,6 +174,20 @@ function get_top10($cats = '')
     return $arr;
 }
 
+
+/**
+ * 数量
+ */
+function get_order_mycount(){
+    $res = array();
+    $user_id  = $_SESSION['user_id'];
+    $sql = "SELECT count(*) as count " .
+        " FROM " .$GLOBALS['ecs']->table('order_info') .
+        " WHERE user_id = '$user_id' ORDER BY add_time DESC";
+    $res = $GLOBALS['db']->getRow($sql);
+    return $res['count'];
+}
+
 /**
  * 获得推荐商品
  *
