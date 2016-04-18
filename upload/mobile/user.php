@@ -56,6 +56,49 @@ if ($act == 'do_login')
 }
 
 elseif ($act == 'order_detail'){
+    $order_id  = isset($_GET['id'])?intval($_GET['id']):0;
+    if(empty($order_id)){
+        $tips = "订单不存在";
+        $smarty->assign('tips', $tips);
+        $smarty->display('order_done.html');exit;
+    }
+
+    /* 订单状态 */
+    $_LANG['os'][OS_UNCONFIRMED] = '未确认';
+    $_LANG['os'][OS_CONFIRMED] = '已确认';
+    $_LANG['os'][OS_SPLITED] = '已确认';
+    $_LANG['os'][OS_SPLITING_PART] = '已确认';
+    $_LANG['os'][OS_CANCELED] = '已取消';
+    $_LANG['os'][OS_INVALID] = '无效';
+    $_LANG['os'][OS_RETURNED] = '退货';
+
+    $_LANG['ss'][SS_UNSHIPPED] = '未发货';
+    $_LANG['ss'][SS_PREPARING] = '配货中';
+    $_LANG['ss'][SS_SHIPPED] = '已发货';
+    $_LANG['ss'][SS_RECEIVED] = '收货确认';
+    $_LANG['ss'][SS_SHIPPED_PART] = '已发货(部分商品)';
+    $_LANG['ss'][SS_SHIPPED_ING] = '配货中'; // 已分单
+
+    $_LANG['ps'][PS_UNPAYED] = '未付款';
+    $_LANG['ps'][PS_PAYING] = '付款中';
+    $_LANG['ps'][PS_PAYED] = '已付款';
+    $_LANG['cancel'] = '取消订单';
+    $_LANG['pay_money'] = '付款';
+    $_LANG['view_order'] = '查看订单';
+    $_LANG['received'] = '确认收货';
+    $_LANG['ss_received'] = '已完成';
+    $_LANG['confirm_received'] = '你确认已经收到货物了吗？';
+    $_LANG['confirm_cancel'] = '您确认要取消该订单吗？取消后此订单将视为无效订单';
+
+    $user_id  = $_SESSION['user_id'];
+
+
+    $sql = "SELECT order_id, order_sn, order_status, shipping_status, pay_status, add_time, " .
+        "(goods_amount + shipping_fee + insure_fee + pay_fee + pack_fee + card_fee + tax - discount) AS total_fee ".
+        " FROM " .$GLOBALS['ecs']->table('order_info') .
+        " WHERE user_id = '$user_id' and order_id= '$order_id' ";
+    $res = $GLOBALS['db']->getRow($sql);
+
 
 
     $smarty->display('order_detail.html');
