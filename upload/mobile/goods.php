@@ -39,6 +39,7 @@ $goods_info['market_price'] = encode_output($goods_info['market_price']);
 $goods_info['shop_price'] = encode_output($goods_info['shop_price']);
 $goods_info['shop_price_formated'] = encode_output($goods_info['shop_price_formated']);
 $goods_info['goods_number'] = encode_output($goods_info['goods_number']);
+//print_r($goods_info);exit;
 $smarty->assign('goods_info', $goods_info);
 $shop_price   = $goods_info['shop_price'];
 $smarty->assign('rank_prices',         get_user_rank_prices($goods_id, $shop_price));    // 会员等级价格
